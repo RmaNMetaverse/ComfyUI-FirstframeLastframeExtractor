@@ -2,9 +2,7 @@
 
 > Extract the **first frame** and **last frame** from any video — directly in your ComfyUI workflow.
 
-A lightweight, zero-config utility node for [ComfyUI](https://github.com/comfyanonymous/ComfyUI) that takes any video input and returns the first and last frames as standard `IMAGE` outputs. Works with direct file paths **and** image batches from other nodes like [VideoHelperSuite](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite).
-
-**Developed by [RmaN](https://github.com/RmaNMetaverse) (Arman Jangmiri)**
+A lightweight, zero-config utility node for [ComfyUI](https://github.com/comfyanonymous/ComfyUI) that takes any video input and returns the first and last frames as standard `IMAGE` outputs. Works with direct file paths **and** image batches from other nodes like [VideoHelperSuite](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite).*
 
 ---
 
@@ -58,20 +56,20 @@ Search for **"First & Last Frame Extractor"** in the ComfyUI Manager and click *
 
 ### Inputs
 
-| Name | Type | Required | Description |
-|:-----|:-----|:--------:|:------------|
+| Name         | Type     | Required | Description                                                                     |
+|:------------ |:-------- |:--------:|:------------------------------------------------------------------------------- |
 | `video_path` | `STRING` | Optional | Absolute path to a video file (`.mp4`, `.avi`, `.mkv`, `.mov`, `.webm`, `.gif`) |
-| `images` | `IMAGE` | Optional | Image batch tensor from another node (e.g., VHS Load Video) |
+| `images`     | `IMAGE`  | Optional | Image batch tensor from another node (e.g., VHS Load Video)                     |
 
 > [!NOTE]
 > At least one input must be provided. If both are connected, the **image batch** takes priority.
 
 ### Outputs
 
-| Name | Type | Description |
-|:-----|:-----|:------------|
+| Name          | Type    | Description                                      |
+|:------------- |:------- |:------------------------------------------------ |
 | `first_frame` | `IMAGE` | The very first frame of the video `[1, H, W, C]` |
-| `last_frame` | `IMAGE` | The very last frame of the video `[1, H, W, C]` |
+| `last_frame`  | `IMAGE` | The very last frame of the video `[1, H, W, C]`  |
 
 ### Category
 
@@ -120,22 +118,22 @@ Use both outputs for side-by-side comparison, img2img pipelines, or interpolatio
 
 ## 🔗 Compatibility
 
-| Component | Supported |
-|:----------|:----------|
-| **ComfyUI** | All versions (stable `NODE_CLASS_MAPPINGS` API) |
-| **Python** | 3.8+ |
-| **OS** | Windows, Linux, macOS |
+| Component   | Supported                                                        |
+|:----------- |:---------------------------------------------------------------- |
+| **ComfyUI** | All versions (stable `NODE_CLASS_MAPPINGS` API)                  |
+| **Python**  | 3.8+                                                             |
+| **OS**      | Windows, Linux, macOS                                            |
 | **Interop** | VideoHelperSuite (VHS), or any node that outputs `IMAGE` batches |
 
 ---
 
 ## 🛠️ Dependencies
 
-| Package | Notes |
-|:--------|:------|
+| Package                          | Notes                             |
+|:-------------------------------- |:--------------------------------- |
 | `opencv-python-headless` ≥ 4.5.0 | For reading video files from disk |
-| `torch` | Already included in ComfyUI |
-| `numpy` | Already included in ComfyUI |
+| `torch`                          | Already included in ComfyUI       |
+| `numpy`                          | Already included in ComfyUI       |
 
 ---
 
@@ -165,6 +163,7 @@ Contributions, issues, and feature requests are welcome! Feel free to open an [i
 ## 👤 Author
 
 **RmaN** (Arman Jangmiri)
+
 - GitHub: [@RmaNMetaverse](https://github.com/RmaNMetaverse)
 
 ---
