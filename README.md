@@ -19,26 +19,118 @@ A lightweight, zero-config utility node for [ComfyUI](https://github.com/comfyan
 
 ## 📦 Installation
 
-### Option A — Git Clone (Recommended)
+### Option A — ComfyUI Manager (Easiest)
+
+If you have [ComfyUI Manager](https://github.com/Comfy-Org/ComfyUI-Manager) installed (it comes pre-installed with Comfy Desktop):
+
+1. Open ComfyUI and click the **Manager** button
+2. Click **"Install Custom Nodes"**
+3. Search for **"FirstFrameLastFrame"** or **"First Frame Last Frame"**
+4. Click **Install** → Restart ComfyUI
+
+> ComfyUI Manager handles cloning and dependency installation automatically.
+
+---
+
+### Option B — ComfyUI Portable (Windows Standalone)
+
+This is the most common Windows setup — the one you download as a `.7z` or `.zip` from the [ComfyUI releases page](https://github.com/comfyanonymous/ComfyUI/releases).
+
+**Step 1: Clone the node**
+
+Open a Command Prompt or PowerShell window and navigate to your portable folder:
+
+```bash
+cd ComfyUI_windows_portable\ComfyUI\custom_nodes
+git clone https://github.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtractor.git
+```
+
+**Step 2: Install requirements**
+
+> [!IMPORTANT]
+> You **must** use the embedded Python that ships with the portable version, **not** your system Python. Otherwise the packages will be installed in the wrong place and ComfyUI won't see them.
+
+Navigate back to the portable root folder and run:
+
+```bash
+cd ComfyUI_windows_portable
+.\python_embeded\python.exe -m pip install -r .\ComfyUI\custom_nodes\ComfyUI-FirstframeLastframeExtractor\requirements.txt
+```
+
+**Step 3:** Restart ComfyUI.
+
+---
+
+### Option C — Comfy Desktop (Electron App)
+
+Comfy Desktop runs its own isolated Python environment. It also comes with **ComfyUI Manager pre-installed**, so **Option A above is the recommended method**.
+
+If you need to install manually:
+
+**Step 1: Clone the node**
+
+Find your Comfy Desktop's `custom_nodes` folder. The typical location is:
+
+| OS | Path |
+|:---|:-----|
+| Windows | `C:\Users\<YOU>\AppData\Roaming\ComfyUI\custom_nodes\` |
+| macOS | `~/Library/Application Support/ComfyUI/custom_nodes/` |
+| Linux | `~/.config/ComfyUI/custom_nodes/` |
+
+```bash
+cd <path_to_custom_nodes>
+git clone https://github.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtractor.git
+```
+
+**Step 2: Install requirements**
+
+Locate the `python_embeded` (or `python`) folder inside your Comfy Desktop installation directory, then run:
+
+```bash
+"<path_to_comfy_desktop_python>\python.exe" -m pip install -r "<path_to_custom_nodes>\ComfyUI-FirstframeLastframeExtractor\requirements.txt"
+```
+
+> [!TIP]
+> The easiest way to find the right Python path: open Comfy Desktop → Manager → click **"Open Terminal"** — this opens a terminal pre-configured with the correct Python. Then just run:
+> ```bash
+> pip install -r custom_nodes/ComfyUI-FirstframeLastframeExtractor/requirements.txt
+> ```
+
+**Step 3:** Restart Comfy Desktop.
+
+---
+
+### Option D — Manual Install (pip / venv / conda)
+
+For users who installed ComfyUI manually via `git clone` into a **virtual environment** or **conda environment**:
+
+**Step 1: Clone the node**
 
 ```bash
 cd ComfyUI/custom_nodes/
 git clone https://github.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtractor.git
-pip install -r ComfyUI-FirstframeLastframeExtractor/requirements.txt
 ```
 
-Restart ComfyUI.
+**Step 2: Install requirements**
 
-### Option B — ComfyUI Manager
+Make sure your virtual environment is **activated first**, then:
 
-Search for **"First & Last Frame Extractor"** in the ComfyUI Manager and click **Install**.
+```bash
+pip install -r ComfyUI/custom_nodes/ComfyUI-FirstframeLastframeExtractor/requirements.txt
+```
 
-### Option C — Manual Download
+**Step 3:** Restart ComfyUI.
 
-1. Download and extract the [latest release](https://github.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtractor/releases)
-2. Place the folder inside `ComfyUI/custom_nodes/`
-3. Install dependencies: `pip install -r requirements.txt`
-4. Restart ComfyUI
+---
+
+### Option E — Manual Download (No Git)
+
+1. Go to the [GitHub repo](https://github.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtractor)
+2. Click **Code → Download ZIP**
+3. Extract the folder into your `ComfyUI/custom_nodes/` directory
+4. Make sure the folder structure is correct — `__init__.py` should be directly inside `custom_nodes/ComfyUI-FirstframeLastframeExtractor/` (no double nesting)
+5. Install requirements using the method for your ComfyUI version (see above)
+6. Restart ComfyUI
 
 ---
 
