@@ -11,7 +11,7 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "FirstFrameLastFrameExtractor": "First & Last Frame Extractor 🎬",
+    "FirstFrameLastFrameExtractor": "First Frame & Last Frame Extractor 🎬",
 }
 
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]

@@ -137,7 +137,7 @@ pip install -r ComfyUI/custom_nodes/ComfyUI-FirstframeLastframeExtractor/require
 ## 🚀 Quick Start
 
 1. **Right-click** the ComfyUI canvas
-2. Navigate to **Add Node → Video/Utils → First & Last Frame Extractor 🎬**
+2. Navigate to **Add Node → Video/Utils → First Frame & Last Frame Extractor 🎬**
 3. Connect an input (see below)
 4. Wire the outputs to **Preview Image**, **Save Image**, or any downstream node
 5. **Queue** the prompt
@@ -165,7 +165,7 @@ pip install -r ComfyUI/custom_nodes/ComfyUI-FirstframeLastframeExtractor/require
 
 ### Category
 
-📁 `Video/Utils` → **First & Last Frame Extractor 🎬**
+📁 `Video/Utils` → **First Frame & Last Frame Extractor 🎬**
 
 ---
 
@@ -177,7 +177,7 @@ Paste or type a video file path directly into the node — no other nodes needed
 
 ```
 ┌─────────────────────────────────┐       ┌────────────────┐
-│ First & Last Frame Extractor 🎬 │       │                │
+│ First Frame & Last Frame Extractor 🎬 │       │                │
 │                                 │       │  Preview Image │
 │  video_path: C:\video.mp4      ├──────►│                │
 │                                 │       └────────────────┘
@@ -193,7 +193,7 @@ Connect the IMAGE output of a VHS **Load Video** node to extract the boundary fr
 
 ```
 ┌──────────────────┐       ┌─────────────────────────────────┐       ┌────────────────┐
-│  VHS Load Video  │       │ First & Last Frame Extractor 🎬 │       │                │
+│  VHS Load Video  │       │ First Frame & Last Frame Extractor 🎬 │       │                │
 │                  │       │                                 │       │  Preview Image │
 │        IMAGE  ○──┼──────►│  images                        ├──────►│                │
 │                  │       │                 first_frame  ○──┤       └────────────────┘

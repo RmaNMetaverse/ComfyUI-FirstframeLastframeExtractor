@@ -28,4 +28,4 @@ Repository = "https://github.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtrac
 
 [tool.comfy]
 publisherId = "RmaNMetaverse"
-displayName = "First & Last Frame Extractor"
+displayName = "First Frame & Last Frame Extractor"
