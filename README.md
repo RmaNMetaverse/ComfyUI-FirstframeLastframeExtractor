@@ -4,6 +4,8 @@
 
 A lightweight, zero-config utility node for [ComfyUI](https://github.com/comfyanonymous/ComfyUI) that takes any video input and returns the first and last frames as standard `IMAGE` outputs. Works with direct file paths **and** image batches from other nodes like [VideoHelperSuite](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite).
 
+**Developed by [RmaN](https://github.com/RmaNMetaverse) (Arman Jangmiri)**
+
 ---
 
 ## ✨ Features
@@ -160,6 +162,13 @@ Contributions, issues, and feature requests are welcome! Feel free to open an [i
 
 ---
 
+## 👤 Author
+
+**RmaN** (Arman Jangmiri)
+- GitHub: [@RmaNMetaverse](https://github.com/RmaNMetaverse)
+
+---
+
 <p align="center">
-  Made with ❤️ for the ComfyUI community
+  Made with ❤️ by RmaN for the ComfyUI community
 </p>

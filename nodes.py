@@ -4,6 +4,10 @@ ComfyUI-FirstframeLastframeExtractor
 A simple utility node that extracts the first and last frame from a video
 file or an image batch. Works with direct file paths or piped output from
 other nodes (e.g. VideoHelperSuite).
+
+Author: RmaN (Arman Jangmiri)
+GitHub: https://github.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtractor
+License: MIT
 """
 
 import os
