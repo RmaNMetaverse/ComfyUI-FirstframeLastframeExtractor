@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-firstframe-lastframe-extractor"
-version = "1.0.1"
+version = "1.0.2"
 description = "Extract the first and last frame from any video file or image batch in ComfyUI."
 license = { text = "MIT" }
 requires-python = ">=3.8"
@@ -28,5 +28,5 @@ Repository = "https://github.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtrac
 
 [tool.comfy]
 PublisherId = "rman"
-Icon = "https://raw.githubusercontent.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtractor/main/icon.png"
+Icon = "https://github.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtractor/blob/main/icon.png?raw=true"
 DisplayName = "First Frame & Last Frame Extractor"
