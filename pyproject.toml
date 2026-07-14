@@ -27,5 +27,5 @@ dependencies = [
 Repository = "https://github.com/RmaNMetaverse/ComfyUI-FirstframeLastframeExtractor"
 
 [tool.comfy]
-publisherId = "RmaNMetaverse"
+publisherId = "rman"
 displayName = "First Frame & Last Frame Extractor"
