@@ -5,7 +5,7 @@ description = "Extract the first and last frame from any video file or image bat
 license = { text = "MIT" }
 requires-python = ">=3.8"
 authors = [
-    { name = "RmaN (Arman Jangmiri)", email = "" },
+    { name = "RmaN (Arman Jangmiri)", email = "RmaN.Metaverse@Gmail.com" },
 ]
 keywords = [
     "comfyui",
