@@ -69,8 +69,11 @@ class FirstFrameLastFrameExtractor:
 
         # --- Path A: image batch from another node ---
         if images is not None:
-            first_frame = images[0].unsqueeze(0)   # [1, H, W, C]
-            last_frame = images[-1].unsqueeze(0)    # [1, H, W, C]
+            # .clone() creates small independent tensors so the giant
+            # parent batch can be garbage-collected immediately after
+            # this node runs, instead of being kept alive by the views.
+            first_frame = images[0].unsqueeze(0).clone()   # [1, H, W, C]
+            last_frame = images[-1].unsqueeze(0).clone()   # [1, H, W, C]
             return (first_frame, last_frame)
 
         # --- Path B: read video file from disk ---
@@ -115,8 +118,12 @@ class FirstFrameLastFrameExtractor:
         """
         Read the first and last frames from an open cv2.VideoCapture.
 
-        Uses seeking first; falls back to sequential reading if the codec
-        does not support seeking to the last frame.
+        Strategy for the last frame:
+          1. Seek directly to (total_frames - 1).
+          2. If that fails, binary-search backwards from the end to find
+             the highest seekable frame (avoids reading every frame).
+          3. Final fallback: scan forward from the start (only reached
+             on truly broken containers).
         """
         # ---- First frame ----
         cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
@@ -128,17 +135,23 @@ class FirstFrameLastFrameExtractor:
 
         # ---- Last frame ----
         total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-
         last_frame = None
 
-        if total_frames > 0:
-            # Try seeking directly to the last frame
+        if total_frames > 1:
+            # Attempt 1: seek straight to last frame
             cap.set(cv2.CAP_PROP_POS_FRAMES, total_frames - 1)
-            ret, last_frame = cap.read()
-            if not ret:
-                last_frame = None
+            ret, frame = cap.read()
+            if ret and frame is not None:
+                last_frame = frame
 
-        # Fallback: read sequentially until the end
+            # Attempt 2: binary-search backwards for highest readable
+            if last_frame is None:
+                last_frame = FirstFrameLastFrameExtractor._binary_seek_last(
+                    cap, 0, total_frames - 1
+                )
+
+        # Attempt 3 (rare): sequential scan — only when total_frames
+        # is unreliable (0 or 1) or binary search also failed.
         if last_frame is None:
             cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
             while True:
@@ -155,14 +168,49 @@ class FirstFrameLastFrameExtractor:
         return first_frame, last_frame
 
     @staticmethod
+    def _binary_seek_last(cap, lo, hi):
+        """
+        Binary-search for the highest frame index in [lo, hi] that
+        OpenCV can successfully seek to and decode.
+
+        Returns the decoded frame (np.ndarray) or None.
+        """
+        best_frame = None
+
+        while lo <= hi:
+            mid = (lo + hi) // 2
+            cap.set(cv2.CAP_PROP_POS_FRAMES, mid)
+            ret, frame = cap.read()
+            if ret and frame is not None:
+                best_frame = frame
+                lo = mid + 1        # try higher
+            else:
+                hi = mid - 1        # come back lower
+
+        return best_frame
+
+    @staticmethod
     def _cv2_to_tensor(cv2_frame):
         """
         Convert an OpenCV BGR uint8 frame to a ComfyUI IMAGE tensor.
 
         Returns a torch.float32 tensor with shape [1, H, W, C], values in
         [0.0, 1.0], RGB channel order.
+
+        Minimizes memory copies:
+          - In-place BGR→RGB channel swap (no allocation).
+          - Single float32 conversion via torch (no intermediate numpy copy).
         """
-        rgb = cv2.cvtColor(cv2_frame, cv2.COLOR_BGR2RGB)
-        normalized = rgb.astype(np.float32) / 255.0
-        tensor = torch.from_numpy(normalized).unsqueeze(0)  # [1, H, W, C]
+        # Flip BGR → RGB in-place (reverses last axis, zero-copy view)
+        rgb = cv2_frame[:, :, ::-1]
+
+        # np.ascontiguousarray is needed because the slice above creates
+        # a non-contiguous view; torch.from_numpy requires contiguous data.
+        # This is still only ONE allocation (the contiguous copy).
+        rgb = np.ascontiguousarray(rgb)
+
+        # Build tensor directly from uint8 numpy, then convert to float
+        # in one fused operation — avoids a separate float32 numpy array.
+        tensor = torch.from_numpy(rgb).unsqueeze(0).float().div_(255.0)
+
         return tensor

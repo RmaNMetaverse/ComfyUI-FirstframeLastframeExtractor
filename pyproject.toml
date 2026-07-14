@@ -1,6 +1,10 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "comfyui-firstframe-lastframe-extractor"
-version = "1.0.2"
+version = "1.0.3"
 description = "Extract the first and last frame from any video file or image batch in ComfyUI."
 license = { text = "MIT" }
 requires-python = ">=3.8"
